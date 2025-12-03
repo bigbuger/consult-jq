@@ -8,7 +8,12 @@ Features:
 + complete jq paths and functions by type 'C-M-i' (aka. call 'complete-symbol').
 
 Demo:
-[[file:images/consult-jq.gif][demo]]
+
+[[file:images/consult-jq.gif]]
+
+** Dependencies
+- jq, of course.
+- consult
 
 ** Usage
 Call `consult-jq` or `consult-jq-without-candidate` in a json buffer.
