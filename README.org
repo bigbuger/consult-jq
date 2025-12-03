@@ -1,0 +1,51 @@
+* consult-jq
+
+** Live queries against JSON vai jq and consult
+This package provider an interactive UI for jq in emacs.
+Features:
++ live preview result in a buffer '*consult-jq-result*'.
++ suggesting jq paths in candidates.
++ complete jq paths and functions by type 'C-M-i' (aka. call 'complete-symbol').
+
+Demo:
+[[file:images/consult-jq.gif][demo]]
+
+** Usage
+Call `consult-jq` or `consult-jq-without-candidate` in a json buffer.
+Use 'C-M-i' to complete jq function or json path.
+
+** Tips about orderless
+If you using [[https://github.com/oantolin/orderless][orderless]], this package maybe fail to preview result when your input contain '[]'.
+This is because of orderless consider input as regexp, and try to convert it. This behavior will break the chain.
+You can just configuration the `consult-jq-completion-styles` variable like this:
+#+BEGIN_SRC elisp
+(setq consult-jq-completion-styles '(basic partial-completion))
+#+END_SRC
+
+** Configuration
+| variable                     | describe                                                                    | default               |
+|------------------------------+-----------------------------------------------------------------------------+-----------------------|
+| consult-jq-buffer            | Buffer for the `consult-jq' query results.                                  | \*consult-jq-result\* |
+| consult-jq-json-buffer-mode  | Major mode for the resulting `consult-jq-buffer' buffer.                    | js-mode               |
+| consult-jq-command           | Command for `consult-jq'.                                                   | jq                    |
+| consult-jq-completion-styles | The `completion-styles' for `consult-jq'.  When nil, use the EMACS default. | nil                   |
+
+
+** Related project
+*** [[https://github.com/200ok-ch/counsel-jq][counsel-jq]]
+This package is inspired by counsel-jq.
+Differences:
+- counsel-jq is for ivy.  consult-jq via consult.
+- counsel-jq preview result in minibuffer.
+- counsel-jq not support completion.
+**** [[https://github.com/bigbuger/counsel-jq-ex][counsel-jq-ex]]
+My fork of counsel-jq. Add complete function (just for paths).
+
+*** [[https://github.com/reegnz/jq-zsh-plugin][jq-zsh-plugin]]
+Interactively build jq expressions in zsh.
+Build on fzf.
+I copy the jq-path from that.
+
+*** [[https://github.com/ljos/jq-mode][jq-mode]]
+jq-mode is an emacs major mode for editing jq-scripts.
+It can also be used interactively in a JSON buffer. But not support completion.
